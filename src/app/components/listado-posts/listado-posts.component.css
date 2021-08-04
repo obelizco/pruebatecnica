@@ -1,0 +1,30 @@
+mat-card {
+    margin-top: 20px;
+    background:#ffffff;
+    color:#000000;
+  }
+  
+  mat-form-field {
+  margin-left: 8px; 
+}
+
+mat-card-title{
+  text-transform: capitalize;
+
+}
+mat-expansion-panel {
+  background: #cac6c633;
+  color: #000;
+  
+}
+mat-panel-title{
+  color: #000;
+}
+
+mat-card-subtitle {
+  color: #030303;
+}
+
+mat-list-item {
+  color: #030303;
+}

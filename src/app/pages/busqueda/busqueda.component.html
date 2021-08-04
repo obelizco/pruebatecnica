@@ -1,0 +1,63 @@
+<mat-toolbar color="">
+    <span>Buscador</span>
+    <span class="spacer"></span>
+
+</mat-toolbar>
+<div class="container">
+    <br>
+    <h2>Filtros</h2>
+    <label id="example-radio-group-label">Seleccione el criterio de busqueda</label>
+    <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+        [(ngModel)]="filtroSeleccionado" (change)="limpiar()">
+        <mat-radio-button class="example-radio-button" *ngFor="let criterio of criterioBusqueda; let i = index"
+            [value]="i+1">
+            {{criterio}}
+        </mat-radio-button>
+    </mat-radio-group>
+
+        <mat-form-field *ngIf="filtroSeleccionado!=3" style="display: block;" appearance="outline">
+            <input type="text" placeholder="Ingrese un valor" matInput [(ngModel)]="termino" [matAutocomplete]="auto" 
+                (input)="buscando()">
+                <mat-icon matSuffix>search</mat-icon>
+                <mat-hint>Hint</mat-hint>
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="opcionSeleccionada( $event )">
+                <mat-option *ngFor="let sug of sugerencias" [value]="sug">
+                    <div *ngIf="filtroSeleccionado=='1'">
+                        {{ sug.username }}
+                    </div>
+                    <div *ngIf="filtroSeleccionado=='2'">
+                        {{ sug.email }}
+                    </div>
+                </mat-option>
+                <mat-option value="" *ngIf="sugerencias.length === 0 && termino.trim().length > 0">
+                    No se encontró nada con el término {{ termino }}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="filtroSeleccionado==3" style="display: block;" appearance="outline">
+            <input type="text" placeholder="Ingrese un valor" matInput [(ngModel)]="termino">
+                <button mat-icon-button matSuffix (click)="buscando()">
+                    <!-- <mat-icon>more_vert</mat-icon> -->
+                    <mat-icon  >search</mat-icon>
+
+                  </button>
+           
+        </mat-form-field>
+
+    
+    
+    
+    
+    <h1 *ngIf="postsFiltrados.length>0">Listado de Post</h1>
+    <mat-divider></mat-divider>
+    <br>
+    
+    <div fxLayout="column wrap" fxLayout.xs="row" fxLayoutAlign="center" fxLayoutGap="20px">
+    
+        <div fxFlex="20" fxFlex.lg="15" fxFlex.sm="30" *ngFor="let post of postsFiltrados">
+    
+            <app-listado-posts [post]="post"></app-listado-posts>
+        </div>
+    </div>
+</div>
